@@ -9,15 +9,7 @@ load_dotenv()
 
 MAPBOX_KEY = os.getenv("MAPBOX_KEY")
 
-# Fallback: manually parse .env if it has a colon instead of an equals sign
-if not MAPBOX_KEY:
-    env_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env')
-    if os.path.exists(env_path):
-        with open(env_path, 'r') as f:
-            for line in f:
-                if line.startswith('MAPBOX_KEY:'):
-                    MAPBOX_KEY = line.split(':', 1)[1].strip()
-                    break
+
 
 def geocode_location(location_name):
     if not MAPBOX_KEY:

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-dyszy(3@*=izd^40%td*si^&4$_lbqj)c!epkptw9uua%@#!l2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'spottter-oa.onrender.com']
 
 
 # Application definition
