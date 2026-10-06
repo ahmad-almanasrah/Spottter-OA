@@ -23,7 +23,7 @@ export default function AutocompleteInput({ label, name, value, onChange, placeh
         return;
       }
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
+        const baseUrl = import.meta.env.VITE_API_URL || '';
         const res = await axios.get(`${baseUrl}/api/autocomplete/?q=${encodeURIComponent(value)}`);
         setSuggestions(res.data);
       } catch (err) {
