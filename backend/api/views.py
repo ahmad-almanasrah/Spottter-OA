@@ -91,7 +91,7 @@ def route_view(request):
             
             hos_schedule = calculate_hos(duration_hours, distance_miles, cycle_hours, current_location, pickup, dropoff)
             log_filenames = generate_logs(hos_schedule)
-            log_urls = [request.build_absolute_uri(f'/media/{fname}') for fname in log_filenames]
+            log_urls = [f'/media/{fname}' for fname in log_filenames]
             
             return Response({
                 "status": "success",

@@ -27,7 +27,8 @@ export default function TripForm() {
     setLoading(true);
     setResponse(null);
     try {
-      const res = await axios.post('http://127.0.0.1:8000/api/route/', formData);
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || '';
+      const res = await axios.post(`${baseUrl}/api/route/`, formData);
       setResponse(res.data);
     } catch (err) {
       setResponse(err.response?.data || { error: err.message || 'An unexpected error occurred.' });

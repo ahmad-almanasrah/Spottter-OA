@@ -1,8 +1,10 @@
 import React, { useMemo } from 'react';
+import mapboxgl from 'mapbox-gl';
 import Map, { Source, Layer, Marker } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_KEY || '';
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_KEY || import.meta.env.VITE_MAPBOX_TOKEN || '';
+mapboxgl.accessToken = MAPBOX_TOKEN;
 
 export default function RouteMap({ routeData }) {
   const { geometry, waypoints } = routeData;
