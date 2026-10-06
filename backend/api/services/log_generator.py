@@ -6,6 +6,22 @@ from PIL import Image, ImageDraw, ImageFont
 
 SCALE_FACTOR = 3
 
+import urllib.request
+
+def get_font(size):
+    font_filename = 'Roboto-Regular.ttf'
+    font_path = os.path.join(os.path.dirname(__file__), font_filename)
+    if not os.path.exists(font_path):
+        url = 'https://github.com/googlefonts/roboto/raw/main/src/hinted/Roboto-Regular.ttf'
+        try:
+            urllib.request.urlretrieve(url, font_path)
+        except Exception:
+            pass
+    try:
+        return ImageFont.truetype(font_path, size)
+    except Exception:
+        return ImageFont.load_default()
+
 def get_grid_coordinates(image_path):
     fallback = (200, 1800, 400, 450, 500, 550, 750, 690)
     
@@ -122,10 +138,7 @@ def generate_logs(schedule):
         last_remark_x = -9999
         remark_level = 0
         
-        try:
-            font = ImageFont.truetype("arial.ttf", 12 * SCALE_FACTOR)
-        except IOError:
-            font = ImageFont.load_default()
+        font = get_font(26 * SCALE_FACTOR)
             
         for entry in day:
             status = entry["status"]
