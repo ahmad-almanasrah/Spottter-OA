@@ -138,7 +138,7 @@ def generate_logs(schedule):
         last_remark_x = -9999
         remark_level = 0
         
-        font = get_font(18 * SCALE_FACTOR)
+        font = get_font(15 * SCALE_FACTOR)
             
         for entry in day:
             status = entry["status"]
