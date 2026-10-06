@@ -51,25 +51,25 @@ export default function AutocompleteInput({ label, name, value, onChange, placeh
 
   return (
     <div className="relative" ref={wrapperRef}>
-      <label className="block text-sm font-semibold text-gray-700 mb-1">{label}</label>
+      <label className="block text-sm font-semibold text-stone-600 mb-2 ml-1">{label}</label>
       <input
         type="text"
         name={name}
         value={value}
         onChange={handleInputChange}
         onFocus={() => setShowDropdown(true)}
-        className="block w-full rounded-lg border-gray-300 shadow-sm border px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-colors"
+        className="block w-full rounded-2xl border-stone-200 shadow-sm bg-stone-50 hover:bg-white px-5 py-4 text-stone-700 focus:border-orange-300 focus:ring-orange-200 transition-colors placeholder-stone-400 outline-none"
         required
         placeholder={placeholder}
         autoComplete="off"
       />
       {showDropdown && suggestions.length > 0 && (
-        <ul className="absolute z-10 w-full bg-white border border-gray-200 shadow-lg rounded-lg mt-1 max-h-60 overflow-y-auto">
+        <ul className="absolute z-20 w-full bg-white border border-stone-100 shadow-xl rounded-2xl mt-2 max-h-60 overflow-y-auto py-2">
           {suggestions.map((s, idx) => (
             <li
               key={idx}
               onClick={() => handleSelect(s)}
-              className="px-4 py-3 hover:bg-blue-50 cursor-pointer text-sm text-gray-700 border-b border-gray-100 last:border-0 transition-colors"
+              className="px-5 py-3 hover:bg-orange-50 cursor-pointer text-sm text-stone-700 transition-colors"
             >
               {s.place_name}
             </li>

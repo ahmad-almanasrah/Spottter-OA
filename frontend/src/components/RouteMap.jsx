@@ -22,7 +22,7 @@ export default function RouteMap({ routeData }) {
       'line-cap': 'round'
     },
     paint: {
-      'line-color': '#2563eb',
+      'line-color': '#f97316', // orange-500
       'line-width': 6,
       'line-opacity': 0.8
     }
@@ -38,7 +38,7 @@ export default function RouteMap({ routeData }) {
   }, [waypoints]);
 
   return (
-    <div className="w-full h-[500px] mt-8 rounded-2xl overflow-hidden border border-gray-200 shadow-lg ring-1 ring-black ring-opacity-5">
+    <div className="w-full h-[500px] mt-8 rounded-[2rem] overflow-hidden border border-stone-200 shadow-sm">
       <Map
         initialViewState={viewState}
         mapStyle="mapbox://styles/mapbox/light-v11"
@@ -49,13 +49,13 @@ export default function RouteMap({ routeData }) {
         </Source>
 
         {waypoints?.current && (
-          <Marker longitude={waypoints.current[0]} latitude={waypoints.current[1]} color="#ef4444" />
+          <Marker longitude={waypoints.current[0]} latitude={waypoints.current[1]} color="#a8a29e" /> // stone-400
         )}
         {waypoints?.pickup && (
-          <Marker longitude={waypoints.pickup[0]} latitude={waypoints.pickup[1]} color="#10b981" />
+          <Marker longitude={waypoints.pickup[0]} latitude={waypoints.pickup[1]} color="#14b8a6" /> // teal-500
         )}
         {waypoints?.dropoff && (
-          <Marker longitude={waypoints.dropoff[0]} latitude={waypoints.dropoff[1]} color="#3b82f6" />
+          <Marker longitude={waypoints.dropoff[0]} latitude={waypoints.dropoff[1]} color="#f43f5e" /> // rose-500
         )}
       </Map>
     </div>

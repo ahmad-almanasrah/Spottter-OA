@@ -20,14 +20,12 @@ export default function TripForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (formData.cycle_hours === '' || formData.cycle_hours === undefined) {
       setResponse({ error: 'Available Cycle Hours is required.' });
       return;
     }
-    
     setLoading(true);
-    setResponse(null); // Clear previous response/errors
+    setResponse(null);
     try {
       const res = await axios.post('http://127.0.0.1:8000/api/route/', formData);
       setResponse(res.data);
@@ -38,17 +36,16 @@ export default function TripForm() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto mt-8 p-8 bg-white shadow-xl rounded-2xl border border-gray-100 text-left transition-all duration-300">
-      <h2 className="text-3xl font-extrabold text-gray-900 mb-8 text-center tracking-tight">Plan Your Trip</h2>
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+    <div className="max-w-5xl mx-auto p-8 sm:p-12 bg-white shadow-xl shadow-stone-200/50 rounded-[2rem] border border-stone-100 text-left transition-all duration-300">
+      <form onSubmit={handleSubmit} className="space-y-8 max-w-2xl mx-auto">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div className="sm:col-span-2">
             <AutocompleteInput
               label="Current Location"
               name="current_location"
               value={formData.current_location}
               onChange={handleChange}
-              placeholder="e.g. New York, NY"
+              placeholder="Where are you starting?"
             />
           </div>
           <div>
@@ -57,7 +54,7 @@ export default function TripForm() {
               name="pickup"
               value={formData.pickup}
               onChange={handleChange}
-              placeholder="e.g. Philadelphia, PA"
+              placeholder="First stop"
             />
           </div>
           <div>
@@ -66,17 +63,17 @@ export default function TripForm() {
               name="dropoff"
               value={formData.dropoff}
               onChange={handleChange}
-              placeholder="e.g. Washington, DC"
+              placeholder="Final destination"
             />
           </div>
           <div className="sm:col-span-2">
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Available Cycle Hours</label>
+            <label className="block text-sm font-semibold text-stone-600 mb-2 ml-1">Available Cycle Hours</label>
             <input
               type="number"
               name="cycle_hours"
               value={formData.cycle_hours}
               onChange={handleChange}
-              className="block w-full rounded-lg border-gray-300 shadow-sm border px-4 py-3 text-gray-900 focus:border-blue-500 focus:ring-blue-500 bg-gray-50 hover:bg-white transition-colors"
+              className="block w-full rounded-2xl border-stone-200 shadow-sm px-5 py-4 text-stone-700 focus:border-orange-300 focus:ring-orange-200 bg-stone-50 hover:bg-white transition-colors placeholder-stone-400 outline-none"
               required
               min="0"
               max="70"
@@ -88,41 +85,41 @@ export default function TripForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-400 disabled:cursor-not-allowed transition-all duration-200"
+          className="w-full mt-4 flex justify-center items-center py-4 px-6 rounded-2xl shadow-sm text-lg font-semibold text-orange-900 bg-orange-100 hover:bg-orange-200 focus:outline-none focus:ring-4 focus:ring-orange-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:-translate-y-0.5"
         >
           {loading ? (
             <>
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-orange-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Calculating Route...
+              Charting the course...
             </>
           ) : (
-            'Calculate Route'
+            'Plan Route'
           )}
         </button>
       </form>
       
       {loading && !response && (
-        <div className="mt-12 space-y-6 animate-pulse max-w-4xl mx-auto">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mx-auto"></div>
-          <div className="h-96 bg-gray-200 rounded-xl w-full"></div>
+        <div className="mt-16 space-y-8 animate-pulse max-w-4xl mx-auto opacity-60">
+          <div className="h-8 bg-stone-200 rounded-full w-1/3 mx-auto"></div>
+          <div className="h-96 bg-stone-100 rounded-[2rem] w-full"></div>
         </div>
       )}
 
       {response && response.geometry && !loading && (
-        <div className="mt-12 animate-fade-in-up">
-          <div className="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-100">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Route Overview</h3>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-8">
-              <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm w-48">
-                <span className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Distance</span>
-                <span className="text-3xl font-bold text-blue-600">{response.distance_miles}<span className="text-lg text-gray-600 font-medium ml-1">mi</span></span>
+        <div className="mt-16 animate-fade-in-up">
+          <div className="bg-[#fcfaf8] rounded-[2rem] p-10 mb-12 border border-stone-100 shadow-inner">
+            <h3 className="text-2xl font-bold text-stone-700 mb-8 text-center font-serif">Journey Overview</h3>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+              <div className="flex flex-col items-center p-6 bg-teal-50 rounded-3xl w-52 shadow-sm border border-teal-100/50">
+                <span className="text-sm font-semibold text-teal-700/70 uppercase tracking-widest mb-1">Distance</span>
+                <span className="text-4xl font-extrabold text-teal-900">{response.distance_miles}<span className="text-lg text-teal-700/60 font-medium ml-1">mi</span></span>
               </div>
-              <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-sm w-48">
-                <span className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-1">Duration</span>
-                <span className="text-3xl font-bold text-green-600">{Math.round(response.duration_seconds / 60)}<span className="text-lg text-gray-600 font-medium ml-1">min</span></span>
+              <div className="flex flex-col items-center p-6 bg-rose-50 rounded-3xl w-52 shadow-sm border border-rose-100/50">
+                <span className="text-sm font-semibold text-rose-700/70 uppercase tracking-widest mb-1">Duration</span>
+                <span className="text-4xl font-extrabold text-rose-900">{Math.round(response.duration_seconds / 60)}<span className="text-lg text-rose-700/60 font-medium ml-1">min</span></span>
               </div>
             </div>
           </div>
@@ -132,13 +129,13 @@ export default function TripForm() {
       )}
 
       {response && response.error && !loading && (
-        <div className="mt-8 p-6 bg-red-50 text-red-800 rounded-xl border border-red-200 flex items-start shadow-sm">
-          <svg className="h-6 w-6 text-red-500 mr-3 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="mt-10 p-6 bg-red-50/80 text-red-800 rounded-2xl border border-red-100 flex items-start shadow-sm">
+          <svg className="h-6 w-6 text-red-400 mr-4 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <div>
-            <h3 className="text-lg font-semibold text-red-800 mb-1">Routing Error</h3>
-            <p className="text-red-700">{response.error}</p>
+            <h3 className="text-base font-bold text-red-800 mb-1">Oops, something went wrong</h3>
+            <p className="text-red-700/90 text-sm">{response.error}</p>
           </div>
         </div>
       )}
